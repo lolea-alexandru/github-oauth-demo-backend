@@ -14,10 +14,12 @@ app.use(cors());
 app.use(bodyParser.json());
 require("dotenv").config();
 
+// TODO: use Swagger to document the endpoint
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
+// TODO: use Swagger to document the endpoint
 app.get("/getAccessToken", async (req, res) => {
   // Request configuration
   const accessTokenURL = "https://github.com/login/oauth/access_token";
@@ -38,6 +40,24 @@ app.get("/getAccessToken", async (req, res) => {
 
     // Send the access token back to the frontend
     res.send(response.data.access_token).status(200);
+  } catch (error) {
+    // TODO: Add better error handling
+    res.send(error).status(400);
+  }
+});
+
+// TODO: use Swagger to document the endpoint
+app.get("/getUserData", async (req, res) => {
+  const userDataURL = "https://api.github.com/user";
+
+  try {
+    const response = await axios.get(userDataURL, {
+      headers: {
+        Authorization: req.get("Authorization"),
+      },
+    });
+
+    res.send(response.data).status(200);
   } catch (error) {
     // TODO: Add better error handling
     res.send(error).status(400);
