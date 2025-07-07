@@ -7,6 +7,7 @@ const bodyParser = require("body-parser");
 
 // routers
 const githubRouter = require("./routers/github");
+const gitlabRouter = require("./routers/gitlab");
 
 /* ============================== CONFIG ============================== */
 
@@ -19,6 +20,7 @@ require("dotenv").config();
 
 // Register routers
 app.use("/github", githubRouter);
+app.use("/gitlab", gitlabRouter);
 
 // TODO: use Swagger to document the endpoint
 app.get("/", (req, res) => {
